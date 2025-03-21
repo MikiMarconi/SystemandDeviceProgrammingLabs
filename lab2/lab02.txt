@@ -1,0 +1,148 @@
+System and Device Programming
+Laboratory number 02 (System and Programming part)
+
+
+
+Learning goals
+--------------
+
+C++ basics, C++ I/O, C++ sequential container.
+
+
+
+Exercise 01
+Binary files
+------------
+
+An ASCII file has lines with the following format:
+- An identifier, i.e., an integer value varying from 1 to the number
+  of rows in the file (e.g., 1, 2, etc.)
+- A register number, i.e., a long integer of 6 digits (e.g., 164678)
+- A surname, i.e., a string of a maximum of 30 characters (e.g., Rossi)
+- A name, i.e., a string of a maximum of 30 characters (e.g., Mario)
+- An examination mark, i.e., an integer value.
+
+The following is a correct example of such a file:
+
+1 100000 Romano Antonio 25
+2 150000 Fabrizi Aldo 22
+3 200000 Verdi Giacomo 15
+4 250000 Rossi Luigi 30
+
+A C++ program receives three file names on the
+command line:
+file_1  file_2  file_3
+Once it receives them, it:
+- Reads the *text* file file_1 (with the previous format) and
+  store the same information into file file_2 in *binary* format.
+  The binary format file must have *fixed-length* records (i.e.,
+  each record must include an integer + a long integer + 31 characters
+  + 31 characters + an integer).
+- Reads back the *binary* file file_2 and store it as a *text*
+  into file file_3 (with the same format of file_1).
+
+Suggestions
+-----------
+Verify that files file_input_1 and file_output_2 are indeed equivalent
+using the shell command "wc" and "diff".
+
+
+
+Exercise 02
+Random File Walks
+-----------------
+
+A file stores *binary* information with the following *fixed-length* records
+
+1 100000 Romano Antonio 25
+2 150000 Fabrizi Aldo 22
+3 200000 Verdi Giacomo 15
+4 250000 Rossi Luigi 30
+
+Write a C++ program to implement a user menu with the following options:
+- R n: Where R is the character 'R', and n is an integer value.
+       Read from the file the record representing student number n and
+       display this information on standard output.
+- W n: Where W is the character 'W', and n is an integer value.
+       Read from standard input all data fields for the student number
+       n and write them on the file in position n.    
+- E: End the program.
+The program receives the input file name on the command line.
+
+The following is an example of execution (using the file presented in
+Exercise 01):
+
+> R 3     // Read info for student 3
+3 200000 Verdi Giacomo 15
+> R 1     // Read info for student 1
+1 100000 Romano Antonio 25
+> W 1     // Over-write info for the student in position 1
+          // with info read from standard input
+          // Read input data
+Data: 1 100000 Romano Antonio 27
+          // Overwrite record on file ...
+> W 5     // Add info for the student in position 5
+          // with info read from standard input
+          // Read input data
+Data: 5 157143 White House 30
+          // Overwrite record on file ...
+> E       // End program
+
+where
+- "//" specifies explanatory comments, not program I/O lines
+- "R 3", "R 1", "W 1", etc. are the user inputs
+- all other characters belong to the program output.
+
+Suggestions
+-----------
+Use the proper method to access the file randomly.
+As all records have the same size, it is possible to define the position
+of each record. 
+
+
+
+Exercise 03
+C++ Basics plus sequential containers
+-------------------------------------
+
+In a stack, i.e., a LIFO, Last-In First-out structure, the last element we insert is the one we must extract.
+Although the C++ library includes a stack container, implement
+your version of a stack, allowing the insertion (push) and
+extraction (pop) of integer values.
+The stack must deliver the following methods:
+- push, to insert a new integer into the stack
+- pop, to extract the last integer we insert into the stack
+- visit, to display all elements contained by the stack
+- getSize, to know the number of integers in the stack
+- empty, which returns true if the stack is empty.
+
+Suggestion
+----------
+Use a
+vector<int>
+to implement the stack.
+
+
+
+Exercise 04
+C++ Basics plus sequential containers
+-------------------------------------
+
+In a stack, i.e., a FIFO, First-In First-out structure, the first element we insert is also the one we must extract first.
+Although the C++ library includes a queue containers, implement
+your version of a queue allowing the insertion (enqueue) and
+extraction (dequeue) of strings.
+The queue must deliver the following methods:
+- enqueue, to insert a new string into the queue
+- dequeue, to extract the last string that we insert into the queue
+- visit, to display all elements contained by the queue
+- getSize, to know the number of strings in the queue
+- empty, which returns true if the queue is empty.
+
+Suggestion
+----------
+Use a
+list<string>
+or
+dueue<string>
+to implement the queue.
