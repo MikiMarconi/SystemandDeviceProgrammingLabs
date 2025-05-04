@@ -1,0 +1,29 @@
+{
+    "version": 4,
+    "configurations": [
+        {
+            "name": "MinGW",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:/msys64/mingw64/include/c++/15.1.0",  // Percorso principale degli header di C++ 15.1.0
+                "C:/msys64/mingw64/include/c++/15.1.0/x86_64-w64-mingw32",  // Percorso per la piattaforma x86_64
+                "C:/msys64/mingw64/include",  // Percorso generale per gli header di MinGW
+                "C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.1.0/include"  // Percorso degli header di sistema di GCC
+            ],
+            "defines": [],
+            "compilerPath": "C:/msys64/mingw64/bin/g++.exe",  // Percorso del compilatore g++
+            "intelliSenseMode": "gcc-x64",  // Modalità di IntelliSense per GCC a 64-bit
+            "cppStandard": "c++20",  // Imposta lo standard C++20
+            "cStandard": "c11",      // Imposta lo standard C11 per il C
+            "browse": {
+                "path": [
+                    "${workspaceFolder}",
+                    "C:/msys64/mingw64/include/c++/15.1.0",  // Percorso principale degli header di C++ 15.1.0
+                    "C:/msys64/mingw64/include/c++/15.1.0/x86_64-w64-mingw32",  // Percorso per la piattaforma x86_64
+                    "C:/msys64/mingw64/include"
+                ],
+                "limitSymbolsToIncludedHeaders": true
+            }
+        }
+    ]
+}
