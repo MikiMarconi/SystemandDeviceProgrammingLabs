@@ -8,8 +8,6 @@
 
 using namespace std;
 
-counting_semaphore<1> mut(1);  // Mutex globale per serializzare l'output sulla console
-
 map<int, unique_ptr<binary_semaphore>> prioritysem; // Usato il puntatore perchè il semaforo non è copiabile
 
 mutex cout_mutex; // Mutex per il controllo dell'output in console
