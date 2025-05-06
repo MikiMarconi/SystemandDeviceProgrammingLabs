@@ -261,7 +261,7 @@ has done its job.
 Observation
 -----------
 
-Is Version B faster than Version A?     Version A(1190 microseconds) Faster than Version B(1278 microseconds)
+Is Version B faster than Version A?     Version A(712 microseconds) Faster than Version B(921 microseconds)
 How much faster is it?
 To discover that, generate some large files (millions of values) and
 run the program computing the elapsed times used by the process.

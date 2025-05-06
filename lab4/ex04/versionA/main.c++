@@ -14,40 +14,34 @@ auto start = high_resolution_clock::now();
 mutex mtx;
 int totNum=0;
 
-struct record{
-    int numVal;
-    list<int> listInt;
-};
-
-record r;
+list<list<int>> mat;
 
 void mapfile(string filename){
-    ifstream file(filename);
+    ifstream file(filename, ios::binary);
 
     if(!file.is_open()){
         mtx.lock();
         cerr<< "File error"<< filename << endl;
         mtx.unlock();
-    }else{
-
-        mtx.lock();
-        int val=0;
-        bool first = true;
-
-        while(file>>val){
-            if (first)
-            {
-                totNum+=val;
-                r.numVal=totNum;
-                first=false; 
-            }else{
-                r.listInt.emplace_back(val);
-            }
-            //r.listInt.sort(); //ordina in modo crescente per decrescente usare .sort(grater<int>())
-            
-        }
-        mtx.unlock();
     }
+    
+    int count;
+    file.read(reinterpret_cast<char*>(&count), sizeof(int)); // legge quanti valori ci sono
+
+    list<int> localList;
+
+    for(int i = 0; i < count; ++i){
+        int val;
+        file.read(reinterpret_cast<char*>(&val), sizeof(int));
+        localList.emplace_back(val);
+    }
+
+    mtx.lock();
+    mat.emplace_back(localList);
+    mtx.unlock();
+
+    file.close();
+
 }
 
 int main(int argc, char **argv){
@@ -65,15 +59,26 @@ int main(int argc, char **argv){
     t2.join();
     t3.join();
     
-    ofstream out(argv[4]);
+    list<int> merged;
+
+    for (auto& lst : mat) {
+        merged.insert(merged.end(), lst.begin(), lst.end());
+    }
+
+    merged.sort();
+    
+    ofstream out(argv[4], ios::binary);
     if (!out.is_open()) {
         cerr << "Errore apertura file output: " << argv[4] << endl;
         return EXIT_FAILURE;
     }
-    r.listInt.sort();
-    out<<r.numVal<<" ";
-    for(int v : r.listInt){
-        out<<v<<" ";
+
+    int totSize = merged.size();
+    out.write(reinterpret_cast<char*>(&totSize), sizeof(int));
+
+    // Scrive tutti gli interi
+    for(int v : merged){
+        out.write(reinterpret_cast<char*>(&v), sizeof(int));
     }
 
     // Punto finale
