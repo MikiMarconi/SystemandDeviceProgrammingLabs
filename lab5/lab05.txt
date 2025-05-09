@@ -1,0 +1,83 @@
+﻿﻿System and Device Programming
+Laboratory number 05 (System and Programming part)
+
+
+Learning goals
+--------------
+
+C++ synchronization
+
+
+Exercise 01 (Optional)
+C++ synchronization
+-------------------
+
+Implement the solution to the exercise of Laboratory 04 Exercise number 05 (version A) using tasks (the async library).
+
+
+
+Exercise 02
+C++ synchronization
+-------------------
+
+Write a small C++ program to simulate the control of a bar to let cars enter and exit a parking lot. 
+For the sake of simulation, consider that a car:
+- arrives every t1 random seconds (1<= t1 <= 3)
+- leaves the parking lot every t2 random seconds (4<= t2 <=7).
+If a car cannot enter because the parking lot is complete, it will just search
+for parking somewhere else (hence, no queues will form in front of the bar
+at the entrance). 
+
+The program can initialize the following parameters.
+- Number of places in the parking lot;
+- The simulation duration (in seconds) is computed starting from the first car that enters.
+
+Use the following function to put a thread in the sleep status (e.g., for 1 second):
+std::this_thread::sleep_for (std::chrono::seconds(1))
+
+Write the program code and manage thread synchronization.
+Make sure all threads finish running before the main program terminates.
+
+
+
+Exercise 03
+C++ synchronization
+-------------------
+
+Write a small C++ program that simulates the control of a heating system for a room (e.g., an office).
+
+When the program starts, the room temperature is 18.5°, the target temperature is 18°, and the heating system is off.
+The program must be composed of the following threads:
+- a thread "targetTemp" that continuously reads the desired temperature from the keyboard (it makes a check of the input every 5 seconds);
+- a thread "currentTemp" that updates the room temperature every 5 seconds (precision: decimals, e.g., 27.3°, 18.2°, …) according to the following logic:
+    - when the heating system is on, it adds 0.3° to the room temperature,
+    - when the heating system is off, it subtracts 0.3° from the room temperature.
+- a thread "admin" manages the heating system with the following logic:
+    - it checks the room temperature every 3 seconds,
+    - when the heating system is on, if the room temperature is more than the target temperature+0.2°, it switches the  heating system off; otherwise, it does nothing;
+    -  when the heating system is off, if the room temperature is less or equal to the target temperature +0.2°, it switches the heating system on; otherwise, it does nothing.
+
+When the user inputs -1 (the thread target_temp will capture it from the keyboard), the program terminates: ensure all threads finish running before the main program terminates.
+The function to put a thread in the sleep status (e.g., for 1 second) is the following one:
+std::this_thread::sleep_for (std::chrono::seconds(1))
+Write the program code and manage thread synchronization.
+
+
+
+Exercise 04
+Memory-mapped I/O
+-----------------
+
+A binary file has the content specified by laboratory 01, exercise 01:
+
+1 100000 Romano Antonio 25
+2 150000 Fabrizi Aldo 22
+3 200000 Verdi Giacomo 15
+4 250000 Rossi Luigi 30
+
+Write a C program that:
+- Maps the file into memory.
+- Runs two threads:
+  - The first thread visits the records from the first to the last and increases the second field (the register number) by 1.
+  - The second thread visits the records from the last to the first and decreases the last field (the mark) by 1.
+Make sure that no record is modified by the two threads at the same time.
