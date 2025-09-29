@@ -1,0 +1,12 @@
+ex1: 
+[0]{0}[1]{1}{0}[0] 
+{0}[0][1]{1}[0]{0}
+[0]{0}[0]{0}{1}[1]
+
+ex2:
+C, CC, C, CC, D, D, D
+2 constructors, 2 copy constructors, and 3 destructors
+
+ex3:
+The program displays the sequence “123.456.789-00#12345678900”
+

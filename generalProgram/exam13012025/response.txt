@@ -1,0 +1,80 @@
+ex1: 1[4]2[3]3[2]4[1]5[2] ok
+
+ex2: 2, 4, 6, 7, 8  ok no 8
+
+ex3: 15 31 3 210 ok
+
+ex4: a codition variable is a synchronization primitive used to synchronize threads that manage one or more variables, throw the condition
+variable a thread wait until a condition is verified. Condition variable are tipically used with mutexes because tipically the condition 
+include a shared variable, to handle the access to that variable a mutex is needed. The condition variable include different functions: 
+notify_one() that is used to notify one thread that is waiting in the condition variable, notify_all() used to notify all threads that
+are waiting in the condition variable, wait() used inside the while costruct used to put thread in waiting. Wait function accept as 
+parameter the mutex, because, before the condition is checked, if is not verified the thread is put in waiting mode and release the mutex
+when the notify arrived, thread reacquire the mutex and verify the condition. The tipical use case scenario is the producer consumer
+problem, implemented below:
+
+#include <iostream>
+#include <condition_variable>
+#include <mutex>
+#include <thread>
+
+int isEmpty = true;
+std::condition_variable cv;
+std::mutex mtx;
+
+void produce(){
+    std::unique_lock<std::mutex> lock(mtx);
+    std::cout<<"Object Produced"<<std::endl;
+    isEmpty = false;
+}
+
+void consume(){
+    std::unique_lock<std::mutex> lock(mtx);
+    while(!isEmpty){
+        cv.wait(lock);
+    }
+    std::cout<<"Object Consumed"<<std::endl;
+    isEmpty=true;
+}
+
+int main(){
+    std::thread consumer(consume);
+    std::thread producer(produce);
+
+    consumer.join();
+    producer.join();
+}
+
+ex5: templates are features that allow to create a generic type class or function that can be used inside the program and accept
+all type of data, they are helpful because only one template class or function is used for different types of data. There are two type of 
+template the class template used to create a generic class and the function template that can returns any type of data and can takes
+parameters of any data type. The class template is reported below:
+
+#include <iostream>
+#include <list>
+
+template<typename T>
+class ListCont{
+    private:
+        std::list<T> listcontainer;
+    public:
+        void insert(T a){
+            listcontainer.emplace_back(a);
+        }
+
+        void showlist(){
+            for(auto &val: listcontainer){
+                std::cout<<val<<" ";
+            }
+        }
+
+        void extractlast(){
+            return listcontainer.back();
+        }
+
+};
+
+The definition and declaration of the template class can have different strategy: the entire template class can be declared and
+implemented in the header file (.h) this file must be included in the file .cpp, another strategy is declared the class in the 
+header file, implement this in the file .cpp and implement teh class in this file.
+

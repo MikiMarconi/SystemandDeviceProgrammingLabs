@@ -1,0 +1,53 @@
+1. Explain how the dynamic memory allocation is managed in C++ code using standard and smart pointers. More
+specifically, illustrates the different types of pointers and allocation strategies. Describe the two approaches'
+main characteristics, advantages, and disadvantages
+
+2. Explain what a condition variable in C (or C++) is and how it is typically used with mutexes. Describe a typical
+use case scenario for condition variables in a producer-consumer problem and why each construct must be
+inserted in the overall scenario.
+
+3. Specify what are templates in C++ and why they are helpful.
+After that, consider the following code snippet in which a class template is instantiated to store objects of
+different types. Define a class template that can be compiled and work with the main program reported below.
+
+int main() {
+    Box<int> intBox(123);
+    Box<std::string> strBox("Hello");
+    Box<float> fB;
+    fB.setValue (13.24);
+    std::cout << intBox.getValue() << std::endl;
+    std::cout << strBox.getValue() << std::endl;
+    return 0;
+}
+
+4. Illustrate the limitations of multi-threading in C++and describe how to perform task processing. Indicate how to
+run a task and describe the main running policies. Report one example to illustrate the use of futures and
+promises, describing the meaning of the main construct and the main features of the strategy
+
+5. Indicate the main strategy to perform IO multiplexing in C++ and compare it with all possible alternatives to
+obtain similar implementations. Report an example describing those techniques, reporting the advantages and
+disadvantages of each strategy.
+
+8. Describe how to manipulate dynamic memory in C++. More specifically, describe the use of the operators new,
+delete, and make_share, and the types shared_ptr, unique_ptr, and weak_ptr. Illustrate the meaning
+of RAII and the reason it has been introduced.
+
+10. Describe how to use C++ templates and which problem they solve. Report an example to manipulate a FIFO
+list of different types (booleans, integers, floats, strings, etc.). Illustrate how to use this template class (i.e., write
+the client program) and indicate at least two different ways to organize it into the header (.h) and the source
+(.cpp) file
+
+15. Specify what templates are in C++ and why they are helpful
+
+
+9. Describe the different techniques to implement multiplexing IO. Make an example of how to use the select
+system call, and clarify which are the advantages of the system call select with respect to the other possible
+approaches to multiplexing IO.
+
+13. Describe lambda expressions and why they have been introduced in C++ (which problem do they solve?).
+Illustrate the meaning of the capture list, the parameter list, the return type, and the body. Report some
+examples to illustrate these features.
+
+14. Explain the strategy of multiplexing IO using the POSIX system call select. Show an example in which it is 
+possible to write to three and read from two channels.
+

@@ -1,0 +1,15 @@
+ex1: 
+21100
+01012
+11200
+
+ex2:
+DAE
+DAD
+EAE
+EAD
+
+ex3:
+C, C, C, D, C, CC, D, D, D
+4C, 4D, 1CC
+3 constructors, 1 copy constructor, and 3 destructors

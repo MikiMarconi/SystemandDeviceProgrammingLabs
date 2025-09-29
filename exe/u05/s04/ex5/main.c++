@@ -46,13 +46,13 @@ void write(){
 
 
     std::unique_lock<std::mutex> lock(mtx);
-    while (numR!=0)
+    while (numR!=0 || numW>0)
     {
         cv.wait(lock);
     }
     numW++;
     std::cout<<"Scrittore sta scrivendo"<<std::endl;
-    std::this_thread::sleep_for(std::chrono::seconds(1));
+    std::this_thread::sleep_for(std::chrono::seconds(3));
     numW--;
     cv.notify_all();
 

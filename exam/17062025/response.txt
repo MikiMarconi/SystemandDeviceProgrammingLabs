@@ -1,0 +1,16 @@
+ex1: 
+Function f1 includes one destructor.
+Line number 4 includes one standard constructor.
+Line number 5 includes one standard constructor and possibly one move assignment operator.
+Line number 6 includes two destructors. 
+
+ex2:
+The sequence A C D E B F is an admissible output
+The sequence C E F A D B is an admissible output.
+The sequence A B C D E F is an admissible output.
+The sequence A E C is an admissible output.
+The sequence E C A is an admissible output.
+The program is subject to deadlock.
+
+ex3:
+4096 710

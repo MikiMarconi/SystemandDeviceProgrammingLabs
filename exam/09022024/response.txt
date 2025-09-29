@@ -1,0 +1,6 @@
+ex1: 1 corretto
+
+ex2: 1, 4, 6, 10, 11 corretto
+
+ex3: 3, 4, 8, 9, 10 corretto
+

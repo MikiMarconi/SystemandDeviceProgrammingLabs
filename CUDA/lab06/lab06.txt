@@ -1,0 +1,134 @@
+﻿System and Device Programming
+Laboratory number 06 (System and Programming part)
+
+
+Learning goals
+--------------
+
+CUDA Programming. You have three options:
+1. If you have an NVIDIA GPU, solve the following problems on your laptop/desktop.
+2. If yout don,t have it, use a web platform such as 
+   https://www.leetgpu.com/playground
+   possibly not implementing any performance evaluation or comparison.
+3. In the worst-case scenario, implement only the C++ version, possibly using tasks
+   with futures and promises.
+
+
+
+Exercise 01
+The SAXPY program
+-----------------
+
+Implement a simple SAXPY program.
+SAXPY stands for “Single-Precision A*X Plus Y”, where A is a constant, and X and Y are arrays. 
+
+The file ex01.cu contains a main() function that allocates two arrays, x and y, and
+initializes each element of the array with 0.1 and 0.2, respectively.
+The user must provide the value of the constant "a" as input for the program.
+The size of each array is predefined with the constant ARRAY_SIZE.
+Currently, the program only calls cpu_saxpy() to compute the SAXPY result using the CPU.
+
+The targets of the exercise are the following.
+
+1. To complete the program, please, see the comments inside it, and call the GPU version
+   of the fuction cpu_saxpy (i.e., gpu_saxpy).
+
+2. Generates a naive hash of the result of both versions and uses them at the end of
+   the execution to compare the solutions of the CPU version and the GPU version. 
+
+3. Measure the execution time of each implementation of SAXPY.
+   The main purpose is to understand how the performance varies between the CPU and the GPU
+   version and the main bottlenecks while developing your GPU-accelerated applications.
+   For instance, it is probable that a considerable amount of time on the GPU version is
+   dedicated to transfer the data from the host to the GPU, and back.
+   Moreover, it can also be feasible that the CPU version is faster if the problem size
+   is not big enough to compensate the previous fact.
+
+
+
+Exercise 02
+Vector Element-wise Transformation
+----------------------------------
+
+Given a vector (array) of numbers, apply a custom mathematical function to each element
+independently to produce n output vector.
+
+Here a few examples of possible mathematical functions:
+
+a. output[i] = input[i] * input[i] + 2 * input[i] + 1 (i.e., x^2+2x+1)
+
+b. output[i] = sin(input[i]) + cos(input[i])
+
+c. output[i] = (input[i] > threshold) ? input[i] * scale_factor : input[i]
+
+Notice that the operation on each element is self-contained and doesn't depend on other elements
+(except potentially a few global constants like threshold or scale_factor).
+
+Implement:
+
+1. A sequential C++ version of the function.
+
+2. A parallel C++ version of the function, in which each thread can process a distinct
+   chunk of the input vector(or each single elements, with tasks, futures, and promises).
+
+3. A parallel CUDA version of the function, in which each GPU thread process one
+   element of the input vector.
+
+Compare the results of the three functions and the time they need to solve the problem.
+
+
+
+Exercise 03
+Simple 1D Stencil Operation (e.g., Averaging Filter)
+----------------------------------------------------
+
+Create a new array where each element output[i] is the average of its neighbors in
+an input array:
+
+output[i] = (input[i-1] + input[i] + input[i+1]) / 3.0
+
+Handle boundary conditions (e.g., assume elements outside the array are 0, or replicate
+edge values).
+
+Implement:
+
+1. A sequential C++ function.
+
+2. A parallel C++ function, where each thread can compute a chunk of the output array
+   (or each single element, with tasks, futures, and promises).
+   Care must be taken with read/write dependencies if updating in place (usually,
+   read from a input array and write to a separate output array).
+
+3. A parallel CUDA function, where each thread computes one element of the output array.
+   Input elements (the neighborhood) are read from global memory.
+
+Compare the results of the three functions and the time they need to solve the problem.
+
+
+Exercised 04 (Optional)
+Histogram Generation for a Small Number of Bins
+-----------------------------------------------
+
+Given an array of data (e.g., integers representing exam scores as float values in
+the range 0-100) and a predefined set of bins (e.g., 0-9, 10-19, ..., 90-100),
+count how many data points fall into each bin.
+
+Implement:
+
+1. A sequential C++ function.
+
+2. A parallel C++ function, where each thread can process a part of the input data
+   and update its own private (thread-local) histogram.
+   These private histograms are then combined (summed) at the end.
+   Alternatively, for a small number of bins, std::atomic can be used for direct
+   updates to shared bin counters.
+
+3. A parallel CUDA function, where each thread processes one or more data elements.
+   Updating the global histogram bins requires atomic operations (e.g., atomicAdd())
+   to avoid race conditions if multiple threads try to update the same bin counter
+   simultaneously.
+   Alternatively, a more advanced approach involves private histograms in shared
+   memory per block, followed by direct updates to shared bin counters.
+
+Compare the results of the three functions and the time they need to solve
+the problem.

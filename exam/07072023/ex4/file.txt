@@ -1,0 +1,3 @@
+100000 Granger Hemione 8 30 30 30 29 29 30 30 29
+124567 Potter Harry 5 30 18 24 29 28
+113567 Weasley Ron 4 28 26 27 28
